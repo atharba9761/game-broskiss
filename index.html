@@ -1,0 +1,1023 @@
+﻿ 
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="Welcome to Game Broskiss! Play quizzes, solve riddles and challenge your knowledge.">
+    <meta name="theme-color" content="#080b16">
+
+    <title>Welcome To Game Broskiss | Quiz & Riddles</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* =====================================
+           HEADER
+        ====================================== */
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 1250px;
+            margin: auto;
+            gap: 15px;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 18px;
+        }
+
+        .admin-access {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: #00ff88;
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 13px;
+            letter-spacing: 1.5px;
+            padding: 10px 18px;
+            border: 1px solid #00ff88;
+            border-radius: 8px;
+            background: rgba(0, 255, 136, 0.08);
+            box-shadow: none;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .admin-access:hover {
+            background: rgba(0, 255, 136, 0.15);
+            color: #00ff88;
+            transform: translateY(-2px);
+        }
+
+        /* =====================================
+           GAME BROSKISS LANDING SCREEN
+        ====================================== */
+
+        .landing-screen {
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            padding: 30px 20px;
+            overflow-y: auto;
+
+            background:
+                radial-gradient(
+                    circle at 50% 0%,
+                    rgba(130, 101, 255, 0.10),
+                    transparent 55%
+                ),
+                #080b16;
+        }
+
+        .landing-screen.hidden {
+            display: none;
+        }
+
+        .landing-content {
+            width: 100%;
+            max-width: 850px;
+            text-align: center;
+            animation: landingAppear 0.8s ease;
+        }
+
+        .landing-title {
+            color: #f4f5ff;
+            font-size: clamp(32px, 6vw, 58px);
+            font-weight: 900;
+            line-height: 1.25;
+            letter-spacing: -2px;
+        }
+
+        .landing-title span {
+            display: inline;
+            color: #a78bfa;
+        }
+
+        .landing-subtitle {
+            color: #929bb5;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            margin-top: 20px;
+        }
+
+        .landing-line {
+            width: 65px;
+            height: 2px;
+            margin: 28px auto;
+            background: #8265ff;
+            border-radius: 10px;
+        }
+
+        .landing-options {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 22px;
+            margin-top: 35px;
+        }
+
+        .landing-card {
+            min-height: 245px;
+            padding: 30px 24px;
+            border-radius: 18px;
+            border: 1px solid rgba(167, 139, 250, 0.2);
+            background: linear-gradient(145deg, #151d32, #101525);
+            color: white;
+            font-family: inherit;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.25s ease;
+        }
+
+        .landing-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(167, 139, 250, 0.7);
+            background: #171e34;
+        }
+
+        .landing-icon {
+            display: block;
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .landing-card h3 {
+            color: #f4f5ff;
+            font-size: 23px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+        }
+
+        .landing-card p {
+            color: #929bb5;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 22px;
+        }
+
+        .landing-play {
+            color: #b9a4ff;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+        }
+
+        .landing-footer {
+            color: #777f98;
+            font-size: 10px;
+            letter-spacing: 2px;
+            margin-top: 30px;
+        }
+
+        @keyframes landingAppear {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* =====================================
+           RIDDLE ENTRY
+        ====================================== */
+
+        .riddle-entry {
+            margin: 45px auto 10px;
+            padding: 30px 20px;
+            max-width: 750px;
+            text-align: center;
+            background: linear-gradient(145deg, #19142d, #101525);
+            border: 1px solid rgba(168, 85, 247, 0.35);
+            border-radius: 20px;
+        }
+
+        .riddle-entry h2 {
+            margin-bottom: 12px;
+        }
+
+        .riddle-entry p {
+            color: var(--muted);
+            margin-bottom: 20px;
+        }
+
+        /* =====================================
+           RIDDLE SCREENS
+        ====================================== */
+
+        .riddle-screen {
+            display: none;
+        }
+
+        .riddle-screen.active {
+            display: block;
+            animation: riddleFadeIn 0.4s ease;
+        }
+
+        @keyframes riddleFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .riddle-home-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+            margin: 30px 0;
+        }
+
+        .riddle-card {
+            padding: 30px 22px;
+            min-height: 190px;
+            border-radius: 20px;
+            border: 1px solid rgba(168, 85, 247, 0.25);
+            background: linear-gradient(145deg, #1b1532, #101525);
+            color: white;
+            text-align: left;
+            cursor: pointer;
+            font-family: inherit;
+            transition: 0.3s ease;
+        }
+
+        .riddle-card:hover {
+            transform: translateY(-5px);
+            border-color: #a855f7;
+        }
+
+        .riddle-icon {
+            display: block;
+            font-size: 42px;
+            margin-bottom: 18px;
+        }
+
+        .riddle-card h3 {
+            font-size: 19px;
+            margin-bottom: 10px;
+        }
+
+        .riddle-card p {
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .riddle-panel {
+            max-width: 850px;
+            margin: auto;
+            padding: 30px;
+            background: linear-gradient(145deg, #19142d, #101525);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            border-radius: 22px;
+        }
+
+        .riddle-question {
+            margin: 25px 0;
+            padding: 30px 22px;
+            text-align: center;
+            border-radius: 16px;
+            background: linear-gradient(135deg, #242044, #151b32);
+            border: 1px solid rgba(130, 101, 255, 0.3);
+        }
+
+        .riddle-question h2 {
+            font-size: clamp(20px, 3vw, 27px);
+            line-height: 1.6;
+        }
+
+        .riddle-answer-input {
+            width: 100%;
+            padding: 17px;
+            margin-top: 15px;
+            border-radius: 12px;
+            border: 1px solid rgba(168, 85, 247, 0.4);
+            background: #0c1020;
+            color: white;
+            font-size: 15px;
+            font-family: inherit;
+            outline: none;
+        }
+
+        .riddle-answer-input:focus {
+            border-color: var(--secondary);
+        }
+
+        .riddle-answer-input::placeholder {
+            color: #747d98;
+        }
+
+        .riddle-option {
+            width: 100%;
+            margin: 8px 0;
+        }
+
+        .riddle-hint {
+            margin-top: 18px;
+            padding: 12px 18px;
+            border-radius: 10px;
+            background: rgba(0, 217, 255, 0.08);
+            border: 1px solid rgba(0, 217, 255, 0.4);
+            color: var(--secondary);
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .riddle-hint:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .riddle-hint-text {
+            margin-top: 14px;
+            padding: 15px;
+            border-radius: 10px;
+            background: rgba(0, 217, 255, 0.07);
+            color: #a9eaff;
+            line-height: 1.6;
+        }
+
+        .riddle-progress {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+            color: var(--muted);
+            font-size: 13px;
+            margin-bottom: 15px;
+        }
+
+        .riddle-feedback {
+            min-height: 25px;
+            margin-top: 18px;
+            font-weight: 700;
+            line-height: 1.6;
+        }
+
+        #riddle-next-btn {
+            margin-top: 15px;
+        }
+
+        #riddle-next-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* =====================================
+           MOBILE RESPONSIVE
+        ====================================== */
+
+        @media (max-width: 900px) {
+            .riddle-home-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .landing-options {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .landing-card {
+                min-height: 210px;
+                padding: 25px 20px;
+            }
+
+            .landing-title {
+                font-size: 34px;
+                letter-spacing: -1px;
+            }
+
+            .landing-subtitle {
+                font-size: 11px;
+                letter-spacing: 2px;
+            }
+
+            .landing-footer {
+                font-size: 9px;
+                line-height: 1.8;
+            }
+
+            .riddle-panel {
+                padding: 18px;
+            }
+
+            .riddle-question {
+                padding: 22px 15px;
+            }
+
+            .riddle-card {
+                min-height: 150px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-right {
+                gap: 8px;
+            }
+
+            .admin-access {
+                padding: 8px 10px;
+                font-size: 11px;
+            }
+
+            .logo {
+                font-size: 17px;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- =====================================
+         GAME BROSKISS LANDING SCREEN
+    ====================================== -->
+
+    <section class="landing-screen" id="landing-screen">
+
+        <div class="landing-content">
+
+            <h1 class="landing-title">
+                Welcome To
+                <span>Game Broskiss</span>
+            </h1>
+
+            <p class="landing-subtitle">
+                QUIZ • RIDDLES • KNOWLEDGE
+            </p>
+
+            <div class="landing-line"></div>
+
+            <div class="landing-options">
+
+                <button
+                    class="landing-card"
+                    type="button"
+                    onclick="openGame('quiz')">
+
+                    <span class="landing-icon">🧠</span>
+
+                    <h3>QUIZ</h3>
+
+                    <p>Test your knowledge</p>
+
+                    <span class="landing-play">
+                        PLAY NOW →
+                    </span>
+
+                </button>
+
+                <button
+                    class="landing-card"
+                    type="button"
+                    onclick="openGame('riddles')">
+
+                    <span class="landing-icon">🧩</span>
+
+                    <h3>RIDDLES</h3>
+
+                    <p>Challenge your mind</p>
+
+                    <span class="landing-play">
+                        PLAY NOW →
+                    </span>
+
+                </button>
+
+            </div>
+
+            <div class="landing-footer">
+                DARK PREMIUM DESIGN • SUBTLE PURPLE ACCENTS • MINIMAL GLOW
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- =====================================
+         HEADER
+    ====================================== -->
+
+    <header class="quiz-header">
+
+        <div class="header-content">
+
+            <h1 class="logo">🎮 Game Broskiss</h1>
+
+            <div class="header-right">
+
+                <div class="score-badge" id="header-score">
+                    Score: <span id="score-display">0</span>
+                </div>
+
+                <a href="admin.html" class="admin-access">
+                    🔐 ADMIN
+                </a>
+
+            </div>
+
+        </div>
+
+    </header>
+
+    <!-- =====================================
+         QUIZ HOME SCREEN
+    ====================================== -->
+
+    <section id="home-screen" class="screen active">
+
+        <div class="screen-content">
+
+            <h2 class="screen-title">Choose Your Category</h2>
+
+            <p class="screen-subtitle">
+                Test your knowledge across six challenging topics
+            </p>
+
+            <div class="topic-grid" id="topic-grid">
+                <!-- Topics generated by JavaScript -->
+            </div>
+
+            <div class="riddle-entry">
+
+                <h2>🧩 Brain Challenge</h2>
+
+                <p>
+                    Want something different?
+                    Solve some tricky riddles!
+                </p>
+
+                <button
+                    class="btn btn-primary"
+                    type="button"
+                    onclick="showRiddleScreen('riddle-home-screen')">
+
+                    Play Riddles →
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- =====================================
+         QUIZ DIFFICULTY SCREEN
+    ====================================== -->
+
+    <section id="difficulty-screen" class="screen">
+
+        <div class="screen-content">
+
+            <h2 class="screen-title" id="difficulty-topic-title">
+                Select Difficulty
+            </h2>
+
+            <p class="screen-subtitle" id="difficulty-topic-subtitle">
+                Pick your challenge level
+            </p>
+
+            <div class="difficulty-grid" id="difficulty-grid">
+                <!-- Difficulty levels generated by JavaScript -->
+            </div>
+
+            <button class="btn btn-back" id="back-to-topics" type="button">
+                <span>← Back to Topics</span>
+            </button>
+
+        </div>
+
+    </section>
+
+    <!-- =====================================
+         QUIZ SCREEN
+    ====================================== -->
+
+    <section id="quiz-screen" class="screen">
+
+        <div class="quiz-layout">
+
+            <main class="quiz-question-panel">
+
+                <div class="quiz-header-info">
+
+                    <div class="progress-container">
+
+                        <div class="progress-label">
+
+                            <span id="progress-text">
+                                Question 1/10
+                            </span>
+
+                            <span id="current-score">
+                                Score: 0
+                            </span>
+
+                        </div>
+
+                        <div class="progress-bar">
+
+                            <div
+                                class="progress-fill"
+                                id="progress-fill">
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="topic-level-badge">
+
+                        <span id="quiz-topic">Topic</span>
+
+                        •
+
+                        <span id="quiz-level">Level</span>
+
+                    </div>
+
+                </div>
+
+                <div class="question-card cinematic-question" id="question-card">
+
+                    <div class="question-number" id="question-number">
+                        Q1
+                    </div>
+
+                    <div class="question-text" id="question-text">
+                        Question text goes here?
+                    </div>
+
+                </div>
+
+                <div class="options-container" id="options-container">
+                    <!-- Options generated by JavaScript -->
+                </div>
+
+                <div class="feedback" id="feedback"></div>
+
+                <button class="btn btn-next" id="next-btn" type="button" disabled>
+
+                    <span>Next Question</span>
+
+                    <span class="btn-arrow">→</span>
+
+                </button>
+
+            </main>
+
+            <aside class="quiz-sidebar">
+
+                <div class="quiz-stats-card">
+
+                    <h3>Quiz Progress</h3>
+
+                    <div class="stat-item">
+                        <span class="stat-label">Topic</span>
+                        <span class="stat-value" id="stat-topic">-</span>
+                    </div>
+
+                    <div class="stat-item">
+                        <span class="stat-label">Difficulty</span>
+                        <span class="stat-value" id="stat-level">-</span>
+                    </div>
+
+                    <div class="stat-item">
+                        <span class="stat-label">Questions Answered</span>
+                        <span class="stat-value" id="stat-answered">0/10</span>
+                    </div>
+
+                    <div class="stat-item">
+                        <span class="stat-label">Correct Answers</span>
+                        <span class="stat-value" id="stat-correct">0</span>
+                    </div>
+
+                </div>
+
+                <div class="quiz-tip-card">
+
+                    <h3>💡 Tip</h3>
+
+                    <p id="quiz-tip">
+                        Think carefully before selecting your answer!
+                    </p>
+
+                </div>
+
+            </aside>
+
+        </div>
+
+    </section>
+
+    <!-- =====================================
+         QUIZ RESULT SCREEN
+    ====================================== -->
+
+    <section id="result-screen" class="screen">
+
+        <div class="screen-content">
+
+            <div class="result-card">
+
+                <div class="result-score-circle">
+
+                    <span id="result-score">0</span>
+
+                    /
+
+                    <span id="result-total">10</span>
+
+                </div>
+
+                <h2 id="result-message">Great Job!</h2>
+
+                <p class="result-description" id="result-description">
+                    You did well on this quiz!
+                </p>
+
+                <div class="result-details">
+
+                    <div class="detail-item">
+                        <span class="detail-label">Topic</span>
+                        <span class="detail-value" id="result-topic">-</span>
+                    </div>
+
+                    <div class="detail-item">
+                        <span class="detail-label">Difficulty Level</span>
+                        <span class="detail-value" id="result-level">-</span>
+                    </div>
+
+                    <div class="detail-item">
+                        <span class="detail-label">Percentage</span>
+                        <span class="detail-value" id="result-percentage">0%</span>
+                    </div>
+
+                </div>
+
+                <div class="result-actions">
+
+                    <button class="btn btn-primary" id="play-again-btn" type="button">
+                        <span>Play Again</span>
+                    </button>
+
+                    <button class="btn btn-outline" id="choose-topic-btn" type="button">
+                        <span>Choose Another Topic</span>
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- =====================================
+         RIDDLES HOME SCREEN
+    ====================================== -->
+
+    <section id="riddle-home-screen" class="screen riddle-screen">
+
+        <div class="screen-content">
+
+            <h2 class="screen-title">
+                🧩 Riddles Challenge
+            </h2>
+
+            <p class="screen-subtitle">
+                Choose your difficulty level
+            </p>
+
+            <div class="riddle-home-grid">
+
+                <button class="riddle-card" onclick="startRiddles('Easy')">
+
+                    <span class="riddle-icon">🌱</span>
+
+                    <h3>Easy</h3>
+
+                    <p>Warm up your brain!</p>
+
+                </button>
+
+                <button class="riddle-card" onclick="startRiddles('Medium')">
+
+                    <span class="riddle-icon">⚡</span>
+
+                    <h3>Medium</h3>
+
+                    <p>Challenge your thinking!</p>
+
+                </button>
+
+                <button class="riddle-card" onclick="startRiddles('Hard')">
+
+                    <span class="riddle-icon">👑</span>
+
+                    <h3>Hard</h3>
+
+                    <p>Only for sharp minds!</p>
+
+                </button>
+
+            </div>
+
+            <button class="btn btn-outline" onclick="showScreen('home')">
+                ← Back to Quiz
+            </button>
+
+        </div>
+
+    </section>
+
+    <!-- =====================================
+         RIDDLE GAME SCREEN
+         TIMER COMPLETELY REMOVED
+    ====================================== -->
+
+    <section id="riddle-game-screen" class="screen riddle-screen">
+
+        <div class="screen-content">
+
+            <div class="riddle-panel">
+
+                <div class="riddle-progress">
+
+                    <span id="riddle-number">
+                        Riddle 1/10
+                    </span>
+
+                    <span>
+                        Score:
+                        <span id="riddle-score">0</span>
+                    </span>
+
+                </div>
+
+                <div class="progress-bar">
+
+                    <div
+                        class="progress-fill"
+                        id="riddle-progress">
+                    </div>
+
+                </div>
+
+                <div class="riddle-question">
+
+                    <h2 id="riddle-question">
+                        Your riddle appears here
+                    </h2>
+
+                </div>
+
+                <div id="riddle-answer-area"></div>
+
+                <button id="riddle-hint-btn" class="riddle-hint">
+                    💡 Show Hint
+                </button>
+
+                <p id="riddle-hint-text" class="riddle-hint-text" hidden></p>
+
+                <p id="riddle-feedback" class="riddle-feedback"></p>
+
+                <button id="riddle-next-btn" class="btn btn-next" disabled>
+                    Next Riddle →
+                </button>
+
+                <button
+                    class="btn btn-outline"
+                    onclick="showRiddleScreen('riddle-home-screen')">
+
+                    Exit Riddles
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- =====================================
+         RIDDLE RESULT SCREEN
+    ====================================== -->
+
+    <section id="riddle-result-screen" class="screen riddle-screen">
+
+        <div class="screen-content">
+
+            <div class="result-card">
+
+                <h2 id="riddle-result-message">
+                    Riddle Master!
+                </h2>
+
+                <div class="result-score-circle">
+
+                    <span id="riddle-result-score">0</span>
+
+                    /
+
+                    <span id="riddle-result-total">10</span>
+
+                </div>
+
+                <h3 id="riddle-result-percentage">0%</h3>
+
+                <div class="result-actions">
+
+                    <button id="riddle-play-again" class="btn btn-primary">
+                        Play Again
+                    </button>
+
+                    <button id="riddle-home-btn" class="btn btn-outline">
+                        Riddles Home
+                    </button>
+
+                    <button
+                        class="btn btn-outline"
+                        onclick="showScreen('home')">
+
+                        Main Quiz Home
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- =====================================
+         JAVASCRIPT FILES
+    ====================================== -->
+
+    <script src="script.js"></script>
+    <script src="riddles.js"></script>
+
+    <!-- =====================================
+         LANDING SCREEN NAVIGATION
+    ====================================== -->
+
+    <script>
+
+        function openGame(game) {
+
+            const landing = document.getElementById("landing-screen");
+
+            if (!landing) return;
+
+            if (game === "quiz") {
+
+                showScreen("home");
+
+            } else if (game === "riddles") {
+
+                document.querySelectorAll(".screen").forEach(screen => {
+                    screen.classList.remove("active");
+                });
+
+                showRiddleScreen("riddle-home-screen");
+
+            }
+
+            landing.classList.add("hidden");
+
+            document.body.style.overflow = "auto";
+        }
+
+    </script>
+
+</body>
+</html>
+<p class="landing-author">Developer_Atharba Bhandari</p>

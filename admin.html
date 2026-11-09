@@ -1,0 +1,1235 @@
+ 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080b16">
+<title>Game Broskis | Admin Panel</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+:root {
+    --bg: #080b16;
+    --panel: #101729;
+    --panel2: #151e34;
+    --purple: #8265ff;
+    --cyan: #00d9ff;
+    --green: #19e68c;
+    --red: #ff526b;
+    --text: #f1f3ff;
+    --muted: #8994b0;
+    --border: rgba(137,148,176,.15);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    color: var(--text);
+    background:
+        radial-gradient(circle at 15% 0%, #8265ff18, transparent 32%),
+        radial-gradient(circle at 90% 90%, #00d9ff0c, transparent 30%),
+        var(--bg);
+}
+
+button, input { font: inherit; }
+button { cursor: pointer; }
+[hidden] { display: none !important; }
+
+/* LOGIN */
+
+#login-screen {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: radial-gradient(circle, #8265ff20, transparent 45%), var(--bg);
+}
+
+.login-card {
+    width: 100%;
+    max-width: 410px;
+    padding: 42px 35px;
+    text-align: center;
+    background: rgba(16,23,41,.96);
+    border: 1px solid #8265ff55;
+    border-radius: 22px;
+    box-shadow: 0 0 35px #8265ff18;
+    animation: appear .5s ease;
+}
+
+@keyframes appear {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.logo {
+    width: 75px;
+    height: 75px;
+    display: grid;
+    place-items: center;
+    margin: 0 auto 25px;
+    background: #8265ff18;
+    border: 1px solid #8265ff80;
+    border-radius: 22px;
+    font-size: 32px;
+    box-shadow: 0 0 25px #8265ff30;
+}
+
+.login-card h1 {
+    font-size: 25px;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+}
+
+.login-card p {
+    color: var(--muted);
+    font-size: 12px;
+    margin-bottom: 28px;
+}
+
+input {
+    width: 100%;
+    padding: 15px;
+    color: white;
+    background: #080e1d;
+    border: 1px solid var(--border);
+    border-radius: 11px;
+    outline: none;
+    margin-bottom: 15px;
+    transition: .25s;
+}
+
+input:focus {
+    border-color: var(--purple);
+    box-shadow: 0 0 14px #8265ff25;
+}
+
+.primary-btn {
+    width: 100%;
+    padding: 15px;
+    color: white;
+    font-weight: 800;
+    letter-spacing: 1px;
+    background: linear-gradient(110deg,#7051ed,#9277ff);
+    border: 1px solid #a58eff;
+    border-radius: 11px;
+    box-shadow: 0 0 14px #8265ff25;
+    transition: .25s;
+}
+
+.primary-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 25px #8265ff55;
+}
+
+.primary-btn:disabled {
+    opacity: .6;
+    cursor: not-allowed;
+}
+
+#error {
+    color: var(--red);
+    font-size: 12px;
+    margin-top: 15px;
+    min-height: 16px;
+}
+
+/* DASHBOARD */
+
+#dashboard {
+    display: none;
+    min-height: 100vh;
+}
+
+/* SIDEBAR */
+
+.sidebar {
+    width: 255px;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    padding: 27px 18px;
+    background: rgba(10,15,30,.97);
+    border-right: 1px solid var(--border);
+    backdrop-filter: blur(20px);
+    z-index: 10;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0 10px 40px;
+}
+
+.brand-icon {
+    font-size: 30px;
+    color: var(--purple);
+    filter: drop-shadow(0 0 9px #8265ff);
+}
+
+.brand h2 {
+    font-size: 14px;
+    font-weight: 900;
+    letter-spacing: .5px;
+}
+
+.brand span {
+    display: block;
+    color: var(--muted);
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    margin-top: 5px;
+}
+
+.nav-title {
+    color: #697592;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    padding: 12px;
+}
+
+.nav-item {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    padding: 14px;
+    margin-bottom: 8px;
+    color: var(--muted);
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 11px;
+    text-align: left;
+    font-size: 13px;
+    transition: .25s;
+}
+
+.nav-item:hover {
+    color: white;
+    background: #8265ff12;
+    border-color: #8265ff35;
+    transform: translateX(3px);
+}
+
+.nav-item.active {
+    color: white;
+    background: linear-gradient(100deg,#8265ff30,#00d9ff09);
+    border-color: #8265ff55;
+    box-shadow: inset 3px 0 var(--purple), 0 0 14px #8265ff12;
+}
+
+.sidebar-bottom {
+    position: absolute;
+    bottom: 25px;
+    left: 18px;
+    right: 18px;
+}
+
+.sidebar-user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 13px 10px;
+    margin-bottom: 13px;
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 11px;
+}
+
+.user-dot {
+    width: 9px;
+    height: 9px;
+    background: var(--green);
+    border-radius: 50%;
+    box-shadow: 0 0 9px var(--green);
+}
+
+.logout-btn {
+    width: 100%;
+    padding: 13px;
+    color: #ff7386;
+    background: #ff526b0c;
+    border: 1px solid #ff526b40;
+    border-radius: 10px;
+    font-weight: 700;
+    transition: .25s;
+}
+
+.logout-btn:hover {
+    background: #ff526b20;
+    box-shadow: 0 0 16px #ff526b25;
+}
+
+/* MAIN */
+
+.main {
+    margin-left: 255px;
+    padding: 34px;
+    max-width: 1750px;
+}
+
+.topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 35px;
+}
+
+.topbar h1 {
+    font-size: 27px;
+    font-weight: 800;
+    letter-spacing: -.8px;
+    margin-bottom: 9px;
+}
+
+.topbar p {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.live-clock {
+    min-width: 150px;
+    padding: 11px 15px;
+    text-align: right;
+    background: var(--panel);
+    border: 1px solid #8265ff45;
+    border-radius: 12px;
+    box-shadow: 0 0 15px #8265ff10;
+}
+
+#live-time {
+    display: block;
+    color: var(--cyan);
+    font-size: 15px;
+    font-weight: 800;
+}
+
+#live-date {
+    display: block;
+    color: var(--muted);
+    font-size: 10px;
+    margin-top: 5px;
+}
+
+.admin-profile {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    padding: 8px 14px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    font-size: 12px;
+}
+
+.profile-photo {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--purple);
+    box-shadow: 0 0 12px #8265ff60;
+}
+
+/* SECTION */
+
+.section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 19px;
+}
+
+.section-heading h2 {
+    font-size: 16px;
+    font-weight: 800;
+}
+
+.section-heading span {
+    color: var(--muted);
+    font-size: 11px;
+}
+
+/* STATS */
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 17px;
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    position: relative;
+    overflow: hidden;
+    padding: 23px;
+    background: linear-gradient(145deg,#151f35,#101729);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    transition: .25s;
+}
+
+.stat-card::after {
+    content: "";
+    position: absolute;
+    width: 110px;
+    height: 110px;
+    right: -40px;
+    bottom: -50px;
+    background: #8265ff20;
+    filter: blur(28px);
+    border-radius: 50%;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    border-color: #8265ff80;
+    box-shadow: 0 0 20px #8265ff15;
+}
+
+.stat-icon {
+    width: 43px;
+    height: 43px;
+    display: grid;
+    place-items: center;
+    background: #8265ff17;
+    border: 1px solid #8265ff30;
+    border-radius: 12px;
+    font-size: 21px;
+    margin-bottom: 20px;
+}
+
+.stat-card h3 {
+    font-size: 30px;
+    font-weight: 900;
+    margin-bottom: 8px;
+}
+
+.stat-card p {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.stat-status {
+    display: inline-block;
+    color: #ffcb70;
+    background: #ffcb7010;
+    border: 1px solid #ffcb7020;
+    padding: 6px 9px;
+    border-radius: 7px;
+    font-size: 10px;
+    margin-top: 15px;
+}
+
+/* PANELS */
+
+.content-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 18px;
+    margin-bottom: 20px;
+}
+
+.panel {
+    min-width: 0;
+    padding: 24px;
+    background: linear-gradient(145deg,#121c32,#101729);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    margin-bottom: 20px;
+    transition: .25s;
+}
+
+.panel:hover {
+    border-color: #8265ff40;
+}
+
+.panel h2 {
+    font-size: 15px;
+    font-weight: 800;
+    margin-bottom: 8px;
+}
+
+.panel-description {
+    color: var(--muted);
+    font-size: 11px;
+    margin-bottom: 25px;
+}
+
+.chart-placeholder {
+    min-height: 190px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border: 1px dashed #435078;
+    border-radius: 12px;
+    background: #080e1b80;
+    color: var(--muted);
+    text-align: center;
+    padding: 20px;
+}
+
+.chart-placeholder strong {
+    color: var(--cyan);
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.chart-placeholder p {
+    font-size: 11px;
+    line-height: 1.8;
+    max-width: 330px;
+}
+
+/* STATUS */
+
+.status-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.status-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    font-size: 12px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.status-row:last-child {
+    border-bottom: none;
+}
+
+.status-label { color: var(--muted); }
+
+.status-value {
+    color: var(--green);
+    font-weight: 700;
+}
+
+/* TABLE */
+
+.table-panel { overflow: hidden; }
+
+.table-wrapper { overflow-x: auto; }
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 500px;
+}
+
+th, td {
+    padding: 17px 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    font-size: 12px;
+}
+
+th {
+    color: var(--muted);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+td { color: #d5dcf3; }
+
+tbody tr { transition: .2s; }
+
+tbody tr:hover {
+    background: #8265ff0c;
+}
+
+.empty-row {
+    text-align: center;
+    padding: 35px 10px;
+    color: var(--muted);
+}
+
+/* FOOTER */
+
+.footer {
+    text-align: center;
+    color: #68738f;
+    font-size: 10px;
+    padding: 35px 0 12px;
+    letter-spacing: 1.5px;
+}
+
+/* BUTTON EFFECTS */
+
+button {
+    transition: .25s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+button:active:not(:disabled) {
+    transform: scale(.97);
+}
+
+button:focus-visible {
+    outline: 2px solid var(--cyan);
+    outline-offset: 3px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:1150px) {
+    .stats-grid { grid-template-columns: repeat(2,1fr); }
+}
+
+@media(max-width:850px) {
+    .sidebar {
+        position: relative;
+        width: 100%;
+        height: auto;
+        padding: 16px;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .brand { padding-bottom: 18px; }
+    .nav-title { display: none; }
+
+    .nav-item {
+        display: inline-flex;
+        width: auto;
+        padding: 11px;
+        margin: 3px;
+    }
+
+    .sidebar-bottom {
+        position: static;
+        margin-top: 12px;
+    }
+
+    .sidebar-user { display: none; }
+
+    .main {
+        margin-left: 0;
+        padding: 22px 16px;
+    }
+
+    .content-grid { grid-template-columns: 1fr; }
+}
+
+@media(max-width:500px) {
+    .stats-grid {
+        grid-template-columns: repeat(2,1fr);
+        gap: 9px;
+    }
+
+    .stat-card { padding: 15px; }
+    .stat-card h3 { font-size: 22px; }
+    .topbar h1 { font-size: 21px; }
+    .topbar-right { width: 100%; }
+    .live-clock { flex: 1; text-align: left; }
+    .admin-profile { flex: 1; }
+    .panel { padding: 17px; }
+}
+
+@media(prefers-reduced-motion:reduce) {
+    *,*::before,*::after {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN -->
+
+<section id="login-screen">
+    <div class="login-card">
+        <div class="logo">⚡</div>
+        <h1>GAME BROSKIS</h1>
+        <p>ADMIN CONTROL CENTER</p>
+
+        <form id="login-form">
+            <input
+                type="password"
+                id="password"
+                placeholder="Enter admin password"
+                autocomplete="current-password"
+                required
+            >
+            <button class="primary-btn" id="login-button">
+                UNLOCK DASHBOARD →
+            </button>
+        </form>
+
+        <div id="error" role="alert"></div>
+    </div>
+</section>
+
+<!-- DASHBOARD -->
+
+<section id="dashboard">
+
+    <aside class="sidebar">
+
+        <div class="brand">
+            <div class="brand-icon">⚡</div>
+            <div>
+                <h2>GAME BROSKIS</h2>
+                <span>ADMIN CONTROL CENTER</span>
+            </div>
+        </div>
+
+        <div class="nav-title">MAIN MENU</div>
+
+        <button class="nav-item active" onclick="showSection('overview',this)">▦ Overview</button>
+        <button class="nav-item" onclick="showSection('visitors',this)">👥 Visitors</button>
+        <button class="nav-item" onclick="showSection('analytics',this)">📊 Analytics</button>
+        <button class="nav-item" onclick="showSection('settings',this)">⚙️ Settings</button>
+
+        <div class="sidebar-bottom">
+            <div class="sidebar-user">
+                <span class="user-dot"></span>
+                SYSTEM ADMINISTRATOR
+            </div>
+            <button class="logout-btn" id="logout-button">↪ LOG OUT</button>
+        </div>
+
+    </aside>
+
+    <main class="main">
+
+        <header class="topbar">
+            <div>
+                <h1 id="page-title">Dashboard Overview</h1>
+                <p>Welcome back, Administrator. Your control center is ready.</p>
+            </div>
+
+            <div class="topbar-right">
+                <div class="live-clock">
+                    <span id="live-time">--:--:--</span>
+                    <span id="live-date">Loading date...</span>
+                </div>
+
+                <div class="admin-profile">
+                    <img
+                        src="images/admin-photo.jpg"
+                        alt="Administrator"
+                        class="profile-photo"
+                    >
+                    <span>Administrator</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- OVERVIEW -->
+
+        <section id="overview-section">
+
+            <div class="section-heading">
+                <h2>Website Statistics</h2>
+                <span id="stats-status">Connecting to live data...</span>
+            </div>
+
+            <div class="stats-grid">
+
+                <div class="stat-card">
+                    <div class="stat-icon">👥</div>
+                    <h3 id="total-visitors">--</h3>
+                    <p>Total Visits</p>
+                    <span class="stat-status">● Live tracking</span>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">📅</div>
+                    <h3 id="today-visitors">--</h3>
+                    <p>Today's Unique Visitors</p>
+                    <span class="stat-status">● Live tracking</span>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">🌐</div>
+                    <h3 id="unique-visitors">--</h3>
+                    <p>Unique Visitors</p>
+                    <span class="stat-status">● Live tracking</span>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">🎯</div>
+                    <h3 id="quiz-attempts">--</h3>
+                    <p>Quiz Attempts</p>
+                    <span class="stat-status">● Live tracking</span>
+                </div>
+
+            </div>
+
+            <div class="content-grid">
+
+                <div class="panel">
+                    <h2>Visitor Analytics</h2>
+                    <p class="panel-description">Website traffic and visitor activity</p>
+
+                    <div class="chart-placeholder">
+                        <strong>📈 Analytics Coming Soon</strong>
+                        <p>Your website traffic chart will appear here once analytics charts are added.</p>
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <h2>System Information</h2>
+                    <p class="panel-description">Current website status</p>
+
+                    <div class="status-list">
+                        <div class="status-row">
+                            <span class="status-label">Admin Authentication</span>
+                            <span class="status-value">● Active</span>
+                        </div>
+
+                        <div class="status-row">
+                            <span class="status-label">Backend Connection</span>
+                            <span class="status-value" id="backend-status">Checking...</span>
+                        </div>
+
+                        <div class="status-row">
+                            <span class="status-label">Visitor Tracking</span>
+                            <span class="status-value" id="tracking-status">Checking...</span>
+                        </div>
+
+                        <div class="status-row">
+                            <span class="status-label">Dashboard</span>
+                            <span class="status-value">Online</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="panel table-panel">
+                <h2>Recent Visitors</h2>
+                <p class="panel-description">Latest recorded website visits</p>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>VISITOR</th>
+                                <th>PAGE</th>
+                                <th>VISIT TIME</th>
+                                <th>STATUS</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="recent-visitors-table">
+                            <tr>
+                                <td colspan="4" class="empty-row">Loading visitor records...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- VISITORS -->
+
+        <section id="visitors-section" hidden>
+            <div class="panel table-panel">
+                <h2>Visitor Management</h2>
+                <p class="panel-description">Monitor recorded activity on Game Broskis.</p>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>VISITOR</th>
+                                <th>PAGE</th>
+                                <th>VISIT TIME</th>
+                                <th>STATUS</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="all-visitors-table">
+                            <tr>
+                                <td colspan="4" class="empty-row">Loading visitor records...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ANALYTICS -->
+
+        <section id="analytics-section" hidden>
+            <div class="panel">
+                <h2>Website Analytics</h2>
+                <p class="panel-description">Understand your website's performance.</p>
+
+                <div class="chart-placeholder">
+                    <strong>📊 Analytics Coming Soon</strong>
+                    <p>Charts and real traffic statistics will appear here.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SETTINGS -->
+
+        <section id="settings-section" hidden>
+            <div class="panel">
+                <h2>Admin Settings</h2>
+                <p class="panel-description">Dashboard and account information.</p>
+
+                <div class="status-list">
+                    <div class="status-row">
+                        <span class="status-label">Website</span>
+                        <span class="status-value">Game Broskis</span>
+                    </div>
+
+                    <div class="status-row">
+                        <span class="status-label">Account</span>
+                        <span class="status-value">Administrator</span>
+                    </div>
+
+                    <div class="status-row">
+                        <span class="status-label">Session</span>
+                        <span class="status-value">Protected</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="footer">
+            GAME BROSKIS © 2026 | ADMIN CONTROL CENTER
+        </footer>
+
+    </main>
+</section>
+
+<script>
+const loginScreen = document.getElementById("login-screen");
+const dashboard = document.getElementById("dashboard");
+const loginForm = document.getElementById("login-form");
+const passwordInput = document.getElementById("password");
+const errorMessage = document.getElementById("error");
+const loginButton = document.getElementById("login-button");
+
+/* CLOCK */
+
+function updateClock() {
+    const now = new Date();
+
+    document.getElementById("live-time").textContent =
+        new Intl.DateTimeFormat("en-NP", {
+            timeZone: "Asia/Kathmandu",
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit",
+            hour12: true
+        }).format(now);
+
+    document.getElementById("live-date").textContent =
+        new Intl.DateTimeFormat("en-NP", {
+            timeZone: "Asia/Kathmandu",
+            weekday: "short",
+            day: "2-digit",
+            month: "short",
+            year: "numeric"
+        }).format(now);
+}
+
+updateClock();
+setInterval(updateClock, 1000);
+
+/* SAFE HTML */
+
+function escapeHTML(value) {
+    return String(value ?? "").replace(/[&<>"']/g, char => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+    })[char]);
+}
+
+/* VISITOR TABLE */
+
+function renderVisitors(tableId, records) {
+    const table = document.getElementById(tableId);
+    if (!table) return;
+
+    if (!records.length) {
+        table.innerHTML = `
+            <tr>
+                <td colspan="4" class="empty-row">No visitor records yet.</td>
+            </tr>
+        `;
+        return;
+    }
+
+    table.innerHTML = records.map(visitor => {
+        const page = visitor.page || "/";
+        const rawTime = visitor.timestamp;
+        const parsedDate = rawTime ? new Date(rawTime) : null;
+
+        const visitTime = parsedDate &&
+            !Number.isNaN(parsedDate.getTime())
+            ? parsedDate.toLocaleString("en-NP", {
+                timeZone: "Asia/Kathmandu"
+            })
+            : "Time unavailable";
+
+        return `
+            <tr>
+                <td>Anonymous</td>
+                <td>${escapeHTML(page)}</td>
+                <td>${escapeHTML(visitTime)}</td>
+                <td style="color:var(--green)">● Recorded</td>
+            </tr>
+        `;
+    }).join("");
+}
+
+/* LOAD DASHBOARD */
+
+async function loadDashboardData() {
+    const statsStatus = document.getElementById("stats-status");
+
+    try {
+        const response = await fetch("/api/admin/dashboard", {
+            cache: "no-store"
+        });
+
+        if (!response.ok) {
+            throw new Error("Could not load dashboard data");
+        }
+
+        const data = await response.json();
+
+        document.getElementById("total-visitors").textContent =
+            (data.totalVisitors ?? 0).toLocaleString();
+
+        document.getElementById("today-visitors").textContent =
+            (data.todayVisitors ?? 0).toLocaleString();
+
+        document.getElementById("unique-visitors").textContent =
+            (data.uniqueVisitors ?? 0).toLocaleString();
+
+        document.getElementById("quiz-attempts").textContent =
+            (data.quizAttempts ?? 0).toLocaleString();
+
+        const activities = Array.isArray(data.recentActivity)
+            ? data.recentActivity
+            : [];
+
+        const visits = activities.filter(item =>
+            String(item.type || "").toLowerCase() === "visit"
+        );
+
+        renderVisitors("recent-visitors-table", visits.slice(0, 5));
+        renderVisitors("all-visitors-table", visits);
+
+        statsStatus.textContent = "Live data connected";
+        statsStatus.style.color = "var(--green)";
+
+        document.getElementById("tracking-status").textContent = "● Active";
+        document.getElementById("tracking-status").style.color = "var(--green)";
+
+    } catch (error) {
+        console.error("Dashboard error:", error);
+
+        statsStatus.textContent = "Unable to load data";
+        statsStatus.style.color = "var(--red)";
+
+        document.getElementById("recent-visitors-table").innerHTML = `
+            <tr><td colspan="4" class="empty-row">Could not load visitor records.</td></tr>
+        `;
+
+        document.getElementById("all-visitors-table").innerHTML = `
+            <tr><td colspan="4" class="empty-row">Could not load visitor records.</td></tr>
+        `;
+
+        document.getElementById("tracking-status").textContent = "● Unavailable";
+        document.getElementById("tracking-status").style.color = "var(--red)";
+    }
+}
+
+/* BACKEND */
+
+async function checkBackend() {
+    const status = document.getElementById("backend-status");
+
+    try {
+        const response = await fetch("/api/admin/dashboard", {
+            cache: "no-store"
+        });
+
+        if (!response.ok) throw new Error("Backend check failed");
+
+        status.textContent = "● Connected";
+        status.style.color = "var(--green)";
+
+    } catch {
+        status.textContent = "● Unavailable";
+        status.style.color = "var(--red)";
+    }
+}
+
+/* DASHBOARD DISPLAY */
+
+function showDashboard() {
+    loginScreen.style.display = "none";
+    dashboard.style.display = "block";
+
+    checkBackend();
+    loadDashboardData();
+}
+
+/* SESSION CHECK */
+
+async function checkSession() {
+    try {
+        const response = await fetch("/api/admin/session");
+
+        if (!response.ok) throw new Error("Session check failed");
+
+        const data = await response.json();
+
+        if (data.authenticated) {
+            showDashboard();
+        } else {
+            loginScreen.style.display = "flex";
+            dashboard.style.display = "none";
+        }
+
+    } catch {
+        errorMessage.textContent =
+            "Cannot connect to admin server. Start Node.js first.";
+    }
+}
+
+/* LOGIN */
+
+loginForm.addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    errorMessage.textContent = "";
+    loginButton.disabled = true;
+    loginButton.textContent = "VERIFYING...";
+
+    const password = passwordInput.value;
+
+    try {
+        const response = await fetch("/api/admin/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ password })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            errorMessage.textContent = data.message || "Incorrect password.";
+            return;
+        }
+
+        passwordInput.value = "";
+        showDashboard();
+
+    } catch {
+        errorMessage.textContent = "Server unavailable. Please try again.";
+
+    } finally {
+        loginButton.disabled = false;
+        loginButton.textContent = "UNLOCK DASHBOARD →";
+    }
+});
+
+/* NAVIGATION */
+
+function showSection(section, button) {
+    const sections = ["overview", "visitors", "analytics", "settings"];
+
+    sections.forEach(name => {
+        document.getElementById(name + "-section").hidden =
+            name !== section;
+    });
+
+    document.querySelectorAll(".nav-item").forEach(item => {
+        item.classList.remove("active");
+    });
+
+    button.classList.add("active");
+
+    const titles = {
+        overview: "Dashboard Overview",
+        visitors: "Visitor Management",
+        analytics: "Website Analytics",
+        settings: "Admin Settings"
+    };
+
+    document.getElementById("page-title").textContent = titles[section];
+
+    if (section === "visitors" || section === "overview") {
+        loadDashboardData();
+    }
+}
+
+/* LOGOUT */
+
+document.getElementById("logout-button")
+.addEventListener("click", async function() {
+    try {
+        const response = await fetch("/api/admin/logout", {
+            method: "POST"
+        });
+
+        if (!response.ok) throw new Error("Logout failed");
+
+        dashboard.style.display = "none";
+        loginScreen.style.display = "flex";
+
+        passwordInput.value = "";
+        errorMessage.textContent = "";
+
+    } catch {
+        alert("Unable to log out. Please try again.");
+    }
+});
+
+/* START */
+
+checkSession();
+</script>
+
+</body>
+</html>
